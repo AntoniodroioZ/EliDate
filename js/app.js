@@ -643,7 +643,7 @@ cargarFotosCloudinary();
 // Debug: limpiar localStorage (quitar antes de entregar)
 // ---------------------------------------------------------------------------
 
-const DEBUG_STORAGE_RESET = true;
+const DEBUG_STORAGE_RESET = false;
 
 const debugClearBtn = document.getElementById('debug-clear-storage');
 
