@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Una invitación especial para ti">
+  <title>Instagram</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Fase 1: Feed principal estilo Instagram con skeleton loader -->
+    <header class="feed-header">
+      <img
+        src="assets/images/instagram-logo.svg"
+        alt="Instagram"
+        class="feed-header__logo"
+      >
+      <div class="feed-header__actions">
+        <button type="button" class="feed-header__action-btn" aria-label="Actividad">
+          <img src="assets/images/icon-heart.svg" alt="" class="feed-header__icon" width="24" height="24">
+        </button>
+        <button type="button" class="feed-header__action-btn" aria-label="Perfil de eli_ramos_m">
+          <img src="assets/images/profile-eli-ramos.jpg" alt="" class="feed-header__profile" width="24" height="24">
+        </button>
+      </div>
+    </header>
+
+    <section class="stories-bar" aria-label="Historias">
+      <div class="stories-bar__scroll">
+        <button
+          class="story-item story-item--live"
+          id="open-stories-btn"
+          type="button"
+          aria-label="Ver historia de antoniodroioz"
+        >
+          <span class="story-item__ring">
+            <img
+              src="assets/images/profile-antoniodroioz.jpg"
+              alt="Historia de antoniodroioz"
+              class="story-item__avatar"
+            >
+          </span>
+          <span class="story-item__label">antoniodroioz</span>
+        </button>
+
+        <div class="story-item story-item--skeleton" aria-hidden="true">
+          <div class="skeleton skeleton--circle"></div>
+          <div class="skeleton skeleton--label"></div>
+        </div>
+        <div class="story-item story-item--skeleton" aria-hidden="true">
+          <div class="skeleton skeleton--circle"></div>
+          <div class="skeleton skeleton--label"></div>
+        </div>
+        <div class="story-item story-item--skeleton" aria-hidden="true">
+          <div class="skeleton skeleton--circle"></div>
+          <div class="skeleton skeleton--label"></div>
+        </div>
+        <div class="story-item story-item--skeleton" aria-hidden="true">
+          <div class="skeleton skeleton--circle"></div>
+          <div class="skeleton skeleton--label"></div>
+        </div>
+      </div>
+    </section>
+
+    <main class="feed" id="feed" aria-label="Feed"></main>
+
+    <!-- DEBUG: quitar antes de entregar a Eli -->
+    <button type="button" id="debug-clear-storage" class="debug-clear-storage">
+      Limpiar progreso
+    </button>
+  </div>
+
+  <!-- Fase 2–4: Visor de historias fullscreen -->
+  <div
+    class="story-viewer"
+    id="story-viewer"
+    aria-hidden="true"
+    role="dialog"
+    aria-modal="true"
+    aria-label="Visor de historias"
+  >
+    <div class="story-viewer__progress" id="story-progress" aria-hidden="true"></div>
+
+    <header class="story-viewer__header">
+      <div class="story-viewer__user">
+        <img
+          src="assets/images/profile-antoniodroioz.jpg"
+          alt=""
+          class="story-viewer__avatar"
+          id="story-viewer-avatar"
+        >
+        <span class="story-viewer__username" id="story-viewer-username">antoniodroioz</span>
+        <span class="story-viewer__time" id="story-viewer-time">Ahora</span>
+      </div>
+      <button class="story-viewer__close" id="close-stories-btn" type="button" aria-label="Cerrar historias">
+        &times;
+      </button>
+    </header>
+
+    <div class="story-viewer__media">
+      <img
+        src=""
+        alt=""
+        class="story-viewer__image story-viewer__image--current"
+        id="story-image-current"
+      >
+      <img
+        src=""
+        alt=""
+        class="story-viewer__image story-viewer__image--next"
+        id="story-image-next"
+        aria-hidden="true"
+      >
+    </div>
+
+    <div class="story-viewer__overlay" id="story-overlay"></div>
+
+    <button class="story-viewer__tap story-viewer__tap--prev" id="story-tap-prev" type="button" aria-label="Historia anterior"></button>
+    <button class="story-viewer__tap story-viewer__tap--next" id="story-tap-next" type="button" aria-label="Siguiente historia"></button>
+
+    <div class="confetti-container" id="confetti-container" aria-hidden="true"></div>
+    <div class="hearts-container" id="hearts-container" aria-hidden="true"></div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

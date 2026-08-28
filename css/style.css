@@ -1,0 +1,847 @@
+/* ==========================================================================
+   EliDate — Invitación estilo Instagram (Mobile-first, iPhone 15 ~393px)
+   ========================================================================== */
+
+:root {
+  --ig-bg: #ffffff;
+  --ig-border: #dbdbdb;
+  --ig-text: #262626;
+  --ig-text-secondary: #8e8e8e;
+  --ig-skeleton-from: #efefef;
+  --ig-skeleton-to: #dbdbdb;
+  --ig-gradient: conic-gradient(from 180deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #f09433);
+  --ig-green: #58c322;
+  --ig-red: #ed4956;
+  --ig-blue: #0095f6;
+  --phone-max: 430px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: #fafafa;
+  color: var(--ig-text);
+  min-height: 100dvh;
+  line-height: 1.4;
+}
+
+button {
+  font: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   App shell — marco tipo teléfono
+   -------------------------------------------------------------------------- */
+
+.app-shell {
+  max-width: var(--phone-max);
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--ig-bg);
+  border-left: 1px solid var(--ig-border);
+  border-right: 1px solid var(--ig-border);
+  position: relative;
+}
+
+@media (min-width: 431px) {
+  body {
+    background: #e5e5e5;
+  }
+
+  .app-shell {
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+    min-height: calc(100dvh - 32px);
+    margin-top: 16px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Skeleton loader
+   -------------------------------------------------------------------------- */
+
+@keyframes skeleton-pulse {
+  0%, 100% { background-color: var(--ig-skeleton-from); }
+  50% { background-color: var(--ig-skeleton-to); }
+}
+
+.skeleton {
+  background-color: var(--ig-skeleton-from);
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+.skeleton--logo {
+  width: 103px;
+  height: 29px;
+  border-radius: 6px;
+}
+
+.skeleton--icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.skeleton--circle {
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+}
+
+.skeleton--label {
+  width: 56px;
+  height: 10px;
+  margin-top: 6px;
+}
+
+.skeleton--avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.skeleton--username {
+  width: 100px;
+  height: 12px;
+}
+
+.skeleton--post-image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 0;
+}
+
+.skeleton--line {
+  width: 85%;
+  height: 10px;
+  margin-bottom: 8px;
+}
+
+.skeleton--line-short {
+  width: 55%;
+}
+
+/* --------------------------------------------------------------------------
+   Feed header
+   -------------------------------------------------------------------------- */
+
+.feed-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  padding-top: calc(10px + var(--safe-top));
+  border-bottom: 1px solid var(--ig-border);
+  position: sticky;
+  top: 0;
+  background: var(--ig-bg);
+  z-index: 10;
+}
+
+.feed-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.feed-header__action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 0;
+  cursor: default;
+}
+
+.feed-header__icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.feed-header__profile {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+}
+
+.feed-header__logo {
+  height: 29px;
+  width: auto;
+  max-width: 103px;
+  display: block;
+}
+
+/* --------------------------------------------------------------------------
+   Stories bar
+   -------------------------------------------------------------------------- */
+
+.stories-bar {
+  border-bottom: 1px solid var(--ig-border);
+  padding: 12px 0 10px;
+}
+
+.stories-bar__scroll {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding: 0 16px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.stories-bar__scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.story-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 72px;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.story-item--skeleton {
+  pointer-events: none;
+}
+
+.story-item__ring {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  padding: 3px;
+  background: var(--ig-gradient);
+}
+
+.story-item__avatar {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid var(--ig-bg);
+}
+
+.story-item__label {
+  margin-top: 4px;
+  font-size: 11px;
+  color: var(--ig-text);
+  max-width: 72px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.story-item--live {
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.story-item--live:hover {
+  transform: scale(1.03);
+}
+
+.story-item--live:focus-visible {
+  outline: 2px solid var(--ig-blue);
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.story-item--live:active {
+  transform: scale(0.97);
+}
+
+/* --------------------------------------------------------------------------
+   Feed posts skeleton
+   -------------------------------------------------------------------------- */
+
+.feed-post {
+  border-bottom: 1px solid var(--ig-border);
+  padding-bottom: 12px;
+  margin-bottom: 4px;
+}
+
+.feed-post__header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+}
+
+.feed-post__actions {
+  display: flex;
+  gap: 16px;
+  padding: 10px 16px 6px;
+}
+
+.feed-post__action-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 0;
+  cursor: default;
+}
+
+.feed-post__action-icon {
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.feed-post__lines {
+  padding: 0 16px;
+}
+
+.feed-post__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.feed-post__username {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.feed-post__image {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+/* --------------------------------------------------------------------------
+   Story viewer (fullscreen modal)
+   -------------------------------------------------------------------------- */
+
+.story-viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: #000;
+  display: flex;
+  flex-direction: column;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+
+.story-viewer.is-open {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.story-open {
+  overflow: hidden;
+}
+
+.story-viewer__progress {
+  position: absolute;
+  top: calc(8px + var(--safe-top));
+  left: 8px;
+  right: 8px;
+  display: flex;
+  gap: 4px;
+  z-index: 20;
+}
+
+.progress-segment {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.35);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.progress-segment__fill {
+  height: 100%;
+  width: 0%;
+  background: #fff;
+  border-radius: 2px;
+  transition: width 0.1s linear;
+}
+
+.progress-segment.is-completed .progress-segment__fill {
+  width: 100%;
+  transition: none;
+}
+
+.progress-segment.is-active .progress-segment__fill {
+  animation: progress-fill 5s linear forwards;
+}
+
+.progress-segment.is-active.is-paused .progress-segment__fill {
+  animation-play-state: paused;
+}
+
+@keyframes progress-fill {
+  from { width: 0%; }
+  to { width: 100%; }
+}
+
+.story-viewer__header {
+  position: absolute;
+  top: calc(20px + var(--safe-top));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 20;
+}
+
+.story-viewer__user {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.story-viewer__avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.story-viewer__username {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.story-viewer__time {
+  font-size: 14px;
+  opacity: 0.85;
+}
+
+.story-viewer__close {
+  color: #fff;
+  font-size: 28px;
+  line-height: 1;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.story-viewer__media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.story-viewer__image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.2s ease;
+}
+
+.story-viewer__image--next {
+  opacity: 0;
+}
+
+.story-viewer__image.is-fading-out {
+  opacity: 0;
+}
+
+.story-viewer__image.is-fading-in {
+  opacity: 1;
+}
+
+.story-viewer__overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px 40px;
+  pointer-events: none;
+}
+
+.story-viewer__overlay > * {
+  pointer-events: auto;
+}
+
+.story-viewer__tap {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 30%;
+  z-index: 15;
+  opacity: 0;
+}
+
+.story-viewer__tap--prev {
+  left: 0;
+}
+
+.story-viewer__tap--next {
+  right: 0;
+}
+
+/* --------------------------------------------------------------------------
+   Quiz sticker (Instagram poll style)
+   -------------------------------------------------------------------------- */
+
+.quiz-sticker {
+  width: min(320px, 88vw);
+  background: rgba(255, 255, 255, 0.92);
+  border-radius: 16px;
+  padding: 20px 16px 16px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25);
+  animation: sticker-pop 0.35s ease;
+}
+
+@keyframes sticker-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.quiz-sticker__question {
+  font-size: 16px;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 16px;
+  color: var(--ig-text);
+  line-height: 1.35;
+}
+
+.quiz-sticker__options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-option {
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1.5px solid var(--ig-border);
+  background: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ig-text);
+  transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+}
+
+.quiz-option:hover:not(:disabled) {
+  background: #fafafa;
+}
+
+.quiz-option:disabled {
+  cursor: default;
+  opacity: 0.85;
+}
+
+.quiz-option--correct {
+  background: var(--ig-green) !important;
+  border-color: var(--ig-green) !important;
+  color: #fff !important;
+}
+
+.quiz-option--wrong {
+  background: var(--ig-red) !important;
+  border-color: var(--ig-red) !important;
+  color: #fff !important;
+  animation: shake 0.5s ease;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.quiz-sticker__check {
+  display: block;
+  text-align: center;
+  font-size: 32px;
+  margin-top: 12px;
+  animation: check-pop 0.4s ease;
+}
+
+@keyframes check-pop {
+  0% { transform: scale(0); opacity: 0; }
+  60% { transform: scale(1.2); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+/* Bonus message after correct answer (historia 1 — KFC/boneless) */
+.quiz-bonus {
+  margin-top: 12px;
+  padding: 10px 12px;
+  background: rgba(88, 195, 34, 0.15);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 500;
+  text-align: center;
+  color: #2d6a1e;
+  animation: bonus-slide 0.4s ease 0.2s both;
+}
+
+@keyframes bonus-slide {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Invitation (historia 5)
+   -------------------------------------------------------------------------- */
+
+.invitation-card {
+  width: min(340px, 90vw);
+  text-align: center;
+  animation: sticker-pop 0.4s ease;
+}
+
+.invitation-card__message {
+  font-size: clamp(18px, 5vw, 22px);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.45;
+  letter-spacing: 0.01em;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+  margin-bottom: 24px;
+}
+
+.invitation-card__btn {
+  display: inline-block;
+  min-width: 180px;
+  min-height: 48px;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(135deg, #f09433, #dc2743, #bc1888);
+  box-shadow: 0 4px 20px rgba(220, 39, 67, 0.45);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.invitation-card__btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 28px rgba(220, 39, 67, 0.55);
+}
+
+.invitation-card__btn:active {
+  transform: scale(0.97);
+}
+
+.invitation-card__btn:disabled {
+  opacity: 0.7;
+  cursor: default;
+  transform: none;
+}
+
+.final-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 25;
+  animation: fade-in 0.5s ease;
+  pointer-events: none;
+}
+
+.final-message__text {
+  font-size: clamp(24px, 7vw, 32px);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.5);
+  animation: final-pop 0.6s ease 0.2s both;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes final-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Confetti
+   -------------------------------------------------------------------------- */
+
+.confetti-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  overflow: hidden;
+}
+
+.confetti-piece {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  top: 40%;
+  left: 50%;
+  border-radius: 2px;
+  animation: confetti-fall 1s ease-out forwards;
+}
+
+@keyframes confetti-fall {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) rotate(var(--rot));
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Floating hearts
+   -------------------------------------------------------------------------- */
+
+.hearts-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 30;
+  overflow: hidden;
+}
+
+.heart-float {
+  position: absolute;
+  bottom: -20px;
+  font-size: var(--size, 20px);
+  color: #ff3040;
+  animation: float-up var(--duration, 3s) ease-in forwards;
+  text-shadow: 0 0 8px rgba(255, 48, 64, 0.4);
+}
+
+@keyframes float-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-110vh) scale(0.6);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Reduced motion
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton,
+  .progress-segment.is-active .progress-segment__fill,
+  .quiz-option--wrong,
+  .confetti-piece,
+  .heart-float,
+  .quiz-sticker,
+  .invitation-card,
+  .final-message,
+  .final-message__text {
+    animation: none !important;
+    transition: none !important;
+  }
+
+  .story-viewer {
+    transition: none;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Debug (quitar antes de entregar)
+   -------------------------------------------------------------------------- */
+
+.debug-clear-storage {
+  position: fixed;
+  bottom: max(16px, calc(16px + var(--safe-bottom)));
+  right: calc((100vw - min(var(--phone-max), 100vw)) / 2 + 12px);
+  z-index: 9999;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+  background: #dc2743;
+  border-radius: 20px;
+  box-shadow: 0 2px 12px rgba(220, 39, 67, 0.45);
+  cursor: pointer;
+}
+
+.debug-clear-storage:hover {
+  background: #c91f37;
+}
+
+.debug-clear-storage:focus-visible {
+  outline: 2px solid var(--ig-blue);
+  outline-offset: 2px;
+}
+
+.debug-clear-storage[hidden] {
+  display: none !important;
+}

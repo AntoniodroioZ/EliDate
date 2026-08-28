@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#87CEEB"/>
+      <stop offset="60%" stop-color="#98D8AA"/>
+      <stop offset="100%" stop-color="#2d5016"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <ellipse cx="200" cy="1400" rx="180" ry="220" fill="#1a3d0a" opacity="0.8"/>
+  <ellipse cx="540" cy="1500" rx="260" ry="280" fill="#234d12" opacity="0.85"/>
+  <ellipse cx="880" cy="1380" rx="200" ry="240" fill="#1a3d0a" opacity="0.8"/>
+  <text x="540" y="900" text-anchor="middle" fill="#fff" font-family="system-ui,sans-serif" font-size="42" opacity="0.8">Bosque  REEMPLAZA</text>
+</svg>
