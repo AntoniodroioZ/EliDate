@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1080" height="1920" viewBox="0 0 1080 1920">
+  <defs>
+    <linearGradient id="sky" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7ec8e3"/>
+      <stop offset="45%" stop-color="#a8d8b9"/>
+      <stop offset="100%" stop-color="#3d6b2e"/>
+    </linearGradient>
+    <linearGradient id="lawn" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#5a9e3a"/>
+      <stop offset="100%" stop-color="#2d5016"/>
+    </linearGradient>
+  </defs>
+  <rect width="1080" height="1920" fill="url(#sky)"/>
+  <rect x="0" y="1100" width="1080" height="820" fill="url(#lawn)"/>
+  <ellipse cx="180" cy="1250" rx="140" ry="90" fill="#4a8f32" opacity="0.6"/>
+  <ellipse cx="900" cy="1280" rx="160" ry="100" fill="#3d7a28" opacity="0.55"/>
+  <ellipse cx="540" cy="1350" rx="220" ry="120" fill="#458a30" opacity="0.5"/>
+  <!-- Subtle CENART-inspired geometric forms -->
+  <rect x="120" y="680" width="180" height="120" rx="4" fill="#c4a882" opacity="0.35" transform="skewY(-3)"/>
+  <rect x="380" y="620" width="320" height="200" rx="6" fill="#b8956e" opacity="0.4"/>
+  <polygon points="700,620 920,620 820,820 600,820" fill="#a07850" opacity="0.35"/>
+  <rect x="200" y="900" width="680" height="8" fill="#8b7355" opacity="0.25"/>
+  <circle cx="540" cy="520" r="60" fill="#f5e6c8" opacity="0.5"/>
+</svg>

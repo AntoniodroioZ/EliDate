@@ -6,7 +6,7 @@
 const STORAGE_KEY = 'elidate-story-progress';
 
 // Imágenes de historias 1–4 se asignan aleatoriamente desde Cloudinary al cargar.
-// Historia 5 mantiene su imagen local (invitación / bosque).
+// Historia 5 mantiene su imagen local (invitación / CENART).
 const stories = [
   {
     id: 1,
@@ -55,9 +55,9 @@ const stories = [
   },
   {
     id: 5,
-    img: 'assets/images/placeholder-bosque.svg',
+    img: 'assets/images/placeholder-cenart.svg',
     type: 'invitation',
-    message: '¡Felicidades, ganaste! Te espero para un picnic especial. Bosque de Chapultepec.',
+    message: '¡Felicidades, ganaste! Te espero para un picnic especial en las áreas verdes del CENART.',
   },
 ];
 
@@ -119,7 +119,17 @@ const tapPrev = document.getElementById('story-tap-prev');
 const tapNext = document.getElementById('story-tap-next');
 const confettiContainer = document.getElementById('confetti-container');
 const heartsContainer = document.getElementById('hearts-container');
+const itemCascadeContainer = document.getElementById('item-cascade-container');
 const feedEl = document.getElementById('feed');
+
+const CASCADE_ITEMS = [
+  { src: 'assets/images/item-cajita-arcilla.svg', label: 'Cajita de figuritas' },
+  { src: 'assets/images/item-ramo-flores.svg', label: 'Ramo de flores' },
+  { src: 'assets/images/item-carta.svg', label: 'Carta' },
+  { src: 'assets/images/item-bolsa.svg', label: 'Bolsa' },
+  { src: 'assets/images/item-camara.svg', label: 'Cámara vintage' },
+  { src: 'assets/images/item-album-up.svg', label: 'Álbum de fotos' },
+];
 
 // ---------------------------------------------------------------------------
 // localStorage
@@ -233,6 +243,7 @@ function closeStoryViewer() {
   document.body.classList.remove('story-open');
   confettiContainer.innerHTML = '';
   heartsContainer.innerHTML = '';
+  stopItemCascade();
   const finalMsg = storyViewer.querySelector('.final-message');
   if (finalMsg) finalMsg.remove();
   state.currentIndex = currentIndex;
@@ -277,6 +288,7 @@ function handleTapNext() {
 
 function renderStory(index, animate = true) {
   clearTimeout(advanceTimeout);
+  stopItemCascade();
   const story = stories[index];
   if (!story) return;
 
@@ -420,6 +432,7 @@ function showBonusMessage(sticker, message) {
 
 function renderInvitation(story) {
   resumeProgress();
+  startItemCascade();
 
   const card = document.createElement('div');
   card.className = 'invitation-card';
@@ -467,7 +480,7 @@ function showFinalMessage() {
 
   const text = document.createElement('p');
   text.className = 'final-message__text';
-  text.textContent = 'Nos vemos pronto ❤️';
+  text.textContent = 'Nos vemos el domingo ❤️';
   overlay.appendChild(text);
 
   storyViewer.appendChild(overlay);
@@ -515,6 +528,51 @@ function launchHeartRain() {
     heart.style.animationDelay = `${Math.random() * 1.5}s`;
     heartsContainer.appendChild(heart);
   }
+}
+
+function stopItemCascade() {
+  if (itemCascadeContainer) itemCascadeContainer.innerHTML = '';
+}
+
+function startItemCascade() {
+  if (!itemCascadeContainer) return;
+  stopItemCascade();
+
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const columns = [8, 20, 32, 44, 56, 68, 80, 92];
+  const itemsPerType = 3;
+  let itemIndex = 0;
+
+  CASCADE_ITEMS.forEach((item) => {
+    for (let i = 0; i < itemsPerType; i++) {
+      const el = document.createElement('div');
+      el.className = 'cascade-item';
+
+      const img = document.createElement('img');
+      img.src = item.src;
+      img.alt = '';
+      img.setAttribute('aria-hidden', 'true');
+      el.appendChild(img);
+
+      const col = columns[itemIndex % columns.length];
+      const size = 36 + Math.random() * 16;
+      const duration = 9 + Math.random() * 7;
+      const delay = reducedMotion ? 0 : -(Math.random() * duration);
+
+      el.style.left = `calc(${col}% - ${size / 2}px)`;
+      el.style.setProperty('--size', `${size}px`);
+      el.style.setProperty('--duration', `${duration}s`);
+      el.style.setProperty('--delay', `${delay}s`);
+
+      if (reducedMotion) {
+        el.style.top = `${10 + (itemIndex % 8) * 11}%`;
+        el.style.animation = 'none';
+      }
+
+      itemCascadeContainer.appendChild(el);
+      itemIndex += 1;
+    }
+  });
 }
 
 // ---------------------------------------------------------------------------
